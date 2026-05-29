@@ -1,0 +1,9 @@
+build/
+data/
+
+# Editor/OS files
+.DS_Store
+.vscode/
+
+# Local cache
+.cache/
