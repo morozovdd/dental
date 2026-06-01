@@ -32,11 +32,19 @@ add_library(dental_geometry
 target_include_directories(dental_geometry PUBLIC include)
 target_compile_options(dental_geometry PRIVATE -Wall -Wextra -pedantic)
 
+add_library(dental_mesh
+  src/mesh/MeshStats.cpp
+)
+
+target_include_directories(dental_mesh PUBLIC include)
+target_link_libraries(dental_mesh PUBLIC dental_core)
+target_compile_options(dental_mesh PRIVATE -Wall -Wextra -pedantic)
+
 add_executable(app
   src/main.cpp
 )
 
-target_link_libraries(app PRIVATE dental_io dental_geometry)
+target_link_libraries(app PRIVATE dental_io dental_geometry dental_mesh)
 target_compile_options(app PRIVATE -Wall -Wextra -pedantic)
 
 include(CTest)
