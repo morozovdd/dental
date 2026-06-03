@@ -1,0 +1,13 @@
+// #include "dental/mesh/MeshCleanup.hpp"
+
+// namespace dental::mesh {
+
+// TriangleMesh weldVertices(const TriangleMesh &mesh, double epsilon) {
+//   TriangleMesh result;
+//   std::vector<std::uint32_t> old_to_new;
+
+//   for (const auto &vertex : mesh.vertices) {
+//     bool is_duplicate = false;
+//     if ()
+//   }
+// }

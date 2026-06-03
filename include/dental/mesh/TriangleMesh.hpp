@@ -15,6 +15,7 @@ struct TriangleMesh {
 
   std::size_t vertexCount() const { return vertices.size(); }
   std::size_t faceCount() const { return faces.size(); }
+  bool empty() const { return vertices.empty(); }
 };
 
 } // namespace dental::mesh

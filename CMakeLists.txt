@@ -34,11 +34,28 @@ target_compile_options(dental_geometry PRIVATE -Wall -Wextra -pedantic)
 
 add_library(dental_mesh
   src/mesh/MeshStats.cpp
+  src/mesh/MeshSegmentation.cpp
 )
 
 target_include_directories(dental_mesh PUBLIC include)
 target_link_libraries(dental_mesh PUBLIC dental_core)
 target_compile_options(dental_mesh PRIVATE -Wall -Wextra -pedantic)
+
+add_library(dental_pointcloud
+  src/pointcloud/PointCloud.cpp
+)
+
+target_include_directories(dental_pointcloud PUBLIC include)
+target_link_libraries(dental_pointcloud PUBLIC dental_core)
+target_compile_options(dental_pointcloud PRIVATE -Wall -Wextra -pedantic)
+
+add_subdirectory(external/polyscope)
+
+add_executable(viewer
+  src/viewer.cpp
+)
+
+target_link_libraries(viewer PRIVATE dental_io dental_mesh polyscope)
 
 add_executable(app
   src/main.cpp
@@ -63,7 +80,7 @@ if(BUILD_TESTING)
     tests/MeshTests.cpp
   )
 
-  target_link_libraries(mesh_tests PRIVATE dental_io)
+  target_link_libraries(mesh_tests PRIVATE dental_io dental_mesh)
   target_compile_options(mesh_tests PRIVATE -Wall -Wextra -pedantic)
 
   add_test(NAME mesh_tests COMMAND mesh_tests)

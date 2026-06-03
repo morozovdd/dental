@@ -1,9 +1,14 @@
 #include "dental/mesh/MeshStats.hpp"
 #include <limits>
+#include <stdexcept>
 
 namespace dental::mesh {
 
 BoundingBox computeBoundingBox(const TriangleMesh &mesh) {
+  if (mesh.empty()) {
+    throw std::runtime_error("Cannot compute bounding box for empty mesh");
+  }
+
   BoundingBox bbox;
   bbox.min = Eigen::Vector3d::Constant(std::numeric_limits<double>::max());
   bbox.max = Eigen::Vector3d::Constant(std::numeric_limits<double>::lowest());
@@ -17,6 +22,10 @@ BoundingBox computeBoundingBox(const TriangleMesh &mesh) {
 }
 
 Eigen::Vector3d computeCentroid(const TriangleMesh &mesh) {
+  if (mesh.empty()) {
+    throw std::runtime_error("Cannot compute centroid for empty mesh");
+  }
+
   Eigen::Vector3d centroid = Eigen::Vector3d::Zero();
 
   for (const auto &vertex : mesh.vertices) {
@@ -42,6 +51,10 @@ double computeSurfaceArea(const TriangleMesh &mesh) {
 }
 
 double computeAverageEdgeLength(const TriangleMesh &mesh) {
+  if (mesh.faceCount() == 0) {
+    throw std::runtime_error("Cannot compute average edge length for mesh with no faces");
+  }
+
   double total_length = 0.0;
 
   for (const auto &face : mesh.faces) {
